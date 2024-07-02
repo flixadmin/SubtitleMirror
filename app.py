@@ -36,7 +36,7 @@ def download(filename):
     try:
         path = os.path.join(upload_dir, filename)
         with open(path, 'rb') as f:
-            return Response(f.read(), 200, mimetype=get_mime(path))
+            return Response(f.read(), 200, {'Content-Length': len(f.read())}, get_mime(path))
     except Exception as e:
         return jsonify(dict(success=False, msg='Error while sending file: ' + str(e)))
 
