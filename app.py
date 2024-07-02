@@ -27,6 +27,7 @@ def upload(filename):
         print(dlurl, flush=True)
         r = get(f'https://api.hydrax.net/{key}/subtitle/{slug}', headers={'Content-Type': 'application/json'}, data='{"url":"' + dlurl + '","label":"' + lang + '"}')
         # os.remove(path)
+        print(r.text, flush=True)
         return jsonify(r.json())
     except Exception as e:
         return jsonify(dict(status=False, msg='Error while saving file: ' + str(e)))
