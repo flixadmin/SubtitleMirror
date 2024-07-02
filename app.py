@@ -29,15 +29,16 @@ def upload(filename):
         # os.remove(path)
         return jsonify(r.json())
     except Exception as e:
-        return jsonify(dict(status=False, msg='Error while saving file: ' + str(e)), status=500)
+        return jsonify(dict(status=False, msg='Error while saving file: ' + str(e)))
 
 @app.route('/download/<filename>')
 def download(filename):
     try:
-        with open(os.path.join(upload_dir, filename), 'rb') as f:
-            return Response(f.read(), 200, mimetype=get_mime())
+        path = os.path.join(upload_dir, filename)
+        with open(path, 'rb') as f:
+            return Response(f.read(), 200, mimetype=get_mime(path))
     except Exception as e:
-        return jsonify(dict(success=False, msg='Error while sending file: ' + str(e)), status=404)
+        return jsonify(dict(success=False, msg='Error while sending file: ' + str(e)))
 
 
 if __name__ == '__main__':
