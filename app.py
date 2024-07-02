@@ -24,7 +24,7 @@ def upload(filename):
         path = os.path.join(upload_dir, filename)
         with open(path, 'wb') as f: f.write(request.data)
         dlurl = 'https://' + request.host + '/download/' + filename
-        print(dlurl)
+        print(dlurl, flush=True)
         r = get(f'https://api.hydrax.net/{key}/subtitle/{slug}', headers={'Content-Type': 'application/json'}, data='{"url":"' + dlurl + '","label":"' + lang + '"}')
         # os.remove(path)
         return jsonify(r.json())
